@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madhan D — Aspiring Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #12151a;
+    --bg-raised: #191d24;
+    --bg-raised-2: #1f242c;
+    --ink: #e7e4da;
+    --ink-dim: #9aa0ab;
+    --ink-faint: #5c626c;
+    --line: #2a2f38;
+    --blue: #7fb0d8;
+    --green: #93c08a;
+    --amber: #d3a25f;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+    --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  ::selection { background: var(--blue); color: #12151a; }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(18, 21, 26, 0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .topbar-inner .brand {
+    color: var(--green);
+  }
+  .topbar-inner nav {
+    display: flex;
+    gap: 22px;
+  }
+  .topbar-inner nav a {
+    text-decoration: none;
+    color: var(--ink-dim);
+    transition: color 0.15s ease;
+  }
+  .topbar-inner nav a:hover,
+  .topbar-inner nav a:focus-visible {
+    color: var(--ink);
+  }
+  @media (max-width: 520px) {
+    .topbar-inner nav { gap: 14px; }
+    .topbar-inner nav a { font-size: 12px; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 88px 0 64px;
+  }
+  .hero .kicker {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--green);
+    margin: 0 0 18px;
+  }
+  .hero .kicker::before { content: "$ "; color: var(--ink-faint); }
+  .hero h1 {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: clamp(34px, 6vw, 52px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 20px;
+  }
+  .hero .role {
+    color: var(--blue);
+  }
+  .hero p.lede {
+    max-width: 58ch;
+    color: var(--ink-dim);
+    font-size: 17px;
+    margin: 0 0 32px;
+  }
+  .hero .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink-dim);
+    border: 1px solid var(--line);
+    background: var(--bg-raised);
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .pill:hover, .pill:focus-visible {
+    border-color: var(--blue);
+    color: var(--ink);
+  }
+
+  /* ---------- Section shell ---------- */
+  section {
+    padding: 56px 0;
+    border-top: 1px solid var(--line);
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .section-head .num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .section-head h2 {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  /* ---------- About ---------- */
+  .about p {
+    color: var(--ink-dim);
+    max-width: 62ch;
+    font-size: 16px;
+  }
+  .about strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Skills ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 32px;
+  }
+  @media (max-width: 560px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+  .skill-group .label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--amber);
+    margin-bottom: 8px;
+  }
+  .skill-group .items {
+    color: var(--ink-dim);
+    font-size: 15px;
+  }
+
+  /* ---------- Projects ---------- */
+  .project {
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .project:first-child { border-top: none; padding-top: 0; }
+  .project-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .project h3 {
+    font-family: var(--font-mono);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ink);
+  }
+  .project .stack {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--blue);
+  }
+  .project ul {
+    margin: 10px 0 0;
+    padding-left: 18px;
+    color: var(--ink-dim);
+    font-size: 15px;
+  }
+  .project li { margin-bottom: 5px; }
+
+  /* ---------- Timeline (Education + Growth) ---------- */
+  .tl-item {
+    display: grid;
+    grid-template-columns: 108px 1fr;
+    gap: 18px;
+    margin-bottom: 26px;
+  }
+  @media (max-width: 520px) {
+    .tl-item { grid-template-columns: 1fr; gap: 4px; }
+  }
+  .tl-item .when {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    padding-top: 2px;
+  }
+  .tl-item h3 {
+    font-size: 16px;
+    margin: 0 0 4px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .tl-item p {
+    margin: 0;
+    color: var(--ink-dim);
+    font-size: 15px;
+  }
+
+  .learning-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: var(--ink-dim);
+    font-size: 15px;
+  }
+  .learning-list li {
+    padding: 9px 0;
+    border-top: 1px solid var(--line);
+    display: flex;
+    gap: 10px;
+  }
+  .learning-list li:first-child { border-top: none; }
+  .learning-list li::before {
+    content: "→";
+    color: var(--green);
+    flex-shrink: 0;
+  }
+
+  /* ---------- Objective / closing ---------- */
+  .objective p {
+    font-size: 18px;
+    color: var(--ink);
+    max-width: 58ch;
+    line-height: 1.65;
+  }
+  .objective .accent { color: var(--blue); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 40px 0 60px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer .sig {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  footer .back-top {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-dim);
+    text-decoration: none;
+  }
+  footer .back-top:hover { color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="brand">madhan.d</span>
+    <nav>
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#growth">growth</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero" id="top">
+    <p class="kicker">whoami</p>
+    <h1>Madhan D<br><span class="role">Aspiring Software Engineer</span></h1>
+    <p class="lede">Software/Computer Science student building a foundation in programming, web development, and databases — learning by shipping small, real projects rather than just reading about them.</p>
+    <div class="contact-row">
+      <a class="pill" href="tel:6382436263">📞 6382436263</a>
+      <a class="pill" href="mailto:25uam010@muthayammal.in">✉ 25uam010@muthayammal.in</a>
+      <span class="pill">📍 Tamil Nadu, India</span>
+    </div>
+  </header>
+
+  <section id="about" class="about">
+    <div class="section-head">
+      <span class="num">01</span>
+      <h2>about</h2>
+    </div>
+    <p>I'm an undergraduate at <strong>Muthayammal Arts and Science College</strong>, expected to graduate in <strong>2028</strong>, with a growing interest in software development and emerging technologies. My foundation spans programming concepts, web development, databases, and problem solving — and I'm actively looking for ways to apply that knowledge to real-world projects and, eventually, a professional engineering team.</p>
+  </section>
+
+  <section id="skills">
+    <div class="section-head">
+      <span class="num">02</span>
+      <h2>skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="label">// programming</div>
+        <div class="items">Python, Java, C</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">// web</div>
+        <div class="items">HTML, CSS, JavaScript</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">// database</div>
+        <div class="items">MySQL</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">// core concepts</div>
+        <div class="items">Object-Oriented Programming, Data Structures, Algorithms</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">// tools</div>
+        <div class="items">Git, GitHub, Visual Studio Code</div>
+      </div>
+      <div class="skill-group">
+        <div class="label">// soft skills</div>
+        <div class="items">Problem Solving, Teamwork, Communication, Time Management, Quick Learning</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head">
+      <span class="num">03</span>
+      <h2>projects</h2>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Student Management System</h3>
+        <span class="stack">Python · MySQL</span>
+      </div>
+      <ul>
+        <li>Developed a basic application for managing student information.</li>
+        <li>Implemented features for adding, updating, searching, and deleting student records.</li>
+        <li>Used MySQL for storing and managing data.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Personal Portfolio Website</h3>
+        <span class="stack">HTML · CSS · JavaScript</span>
+      </div>
+      <ul>
+        <li>Created a responsive personal portfolio website.</li>
+        <li>Added sections for profile, skills, education, projects, and contact information.</li>
+        <li>Used JavaScript for basic user interaction.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-head">
+      <span class="num">04</span>
+      <h2>education</h2>
+    </div>
+    <div class="tl-item">
+      <div class="when">2024 → 2028</div>
+      <div>
+        <h3>Muthayammal Arts and Science College</h3>
+        <p>Undergraduate, Software / Computer Science Related Program — Tamil Nadu, India. Expected graduation: 2028.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="growth">
+    <div class="section-head">
+      <span class="num">05</span>
+      <h2>achievements &amp; learning</h2>
+    </div>
+    <ul class="learning-list">
+      <li>Built beginner-level projects using programming and web technologies.</li>
+      <li>Strengthened problem-solving skills through programming practice.</li>
+      <li>Developed a foundation in programming, databases, and software development.</li>
+      <li>Actively learning Data Structures, Algorithms, Git, and modern development practices.</li>
+    </ul>
+  </section>
+
+  <section id="objective" class="objective">
+    <div class="section-head">
+      <span class="num">06</span>
+      <h2>career objective</h2>
+    </div>
+    <p>To begin my career as a <span class="accent">Software Engineer</span> in a growth-oriented organization where I can apply my programming knowledge, develop practical technical skills, work on real-world software projects, and continuously learn new technologies while contributing to the organization.</p>
+  </section>
+
+  <section id="contact">
+    <div class="section-head">
+      <span class="num">07</span>
+      <h2>contact</h2>
+    </div>
+    <div class="contact-row">
+      <a class="pill" href="tel:6382436263">📞 6382436263</a>
+      <a class="pill" href="mailto:25uam010@muthayammal.in">✉ 25uam010@muthayammal.in</a>
+      <span class="pill">📍 Tamil Nadu, India</span>
+    </div>
+  </section>
+
+  <footer>
+    <span class="sig">© 2026 Madhan D</span>
+    <a class="back-top" href="#top">back to top ↑</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
